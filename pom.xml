@@ -20,7 +20,7 @@
     <junit-jupiter.version>5.9.1</junit-jupiter.version>
     <jackson.version>2.12.0</jackson.version>
 
-    <main.verticle>com.example.luklak_api.MainVerticle</main.verticle>
+    <main.verticle>com.example.luklak_api.verticle.ApiVerticle</main.verticle>
     <launcher.class>io.vertx.core.Launcher</launcher.class>
   </properties>
 
