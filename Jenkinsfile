@@ -1,6 +1,15 @@
 pipeline {
     agent any
     stages {
+
+     stage('Kiểm tra thay đổi trong thư mục') {
+                steps {
+                    script {
+                        sh 'echo thanh-test'
+                    }
+                }
+            }
+
         stage('Kiểm tra thay đổi trong thư mục') {
             steps {
                 script {
