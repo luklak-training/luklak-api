@@ -12,7 +12,6 @@ pipeline {
         stage('Kiểm tra thay đổi trong thư mục') {
             steps {
                 script {
-                    // Kiểm tra sự thay đổi trong thư mục 'my-folder'
                     def changes = sh(
                         script: "git diff --name-only HEAD~1 HEAD | grep '^helm/' || true",
                         returnStdout: true
