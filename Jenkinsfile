@@ -12,12 +12,12 @@ pipeline {
         stage('Kiểm tra thay đổi trong thư mục') {
             steps {
                 script {
-                    def changes = sh(
-                        script: "git diff --name-only HEAD~1 HEAD | grep '^helm/'",
-                        returnStdout: true
-                    ).trim()
+                    def exitCode = sh(
+                        script: "git diff --name-only HEAD~1 HEAD | grep -q '^helm/'",
+                        returnStatus: true
+                    )
 
-                    if (changes) {
+                    if (exitCode == 0) {
                         echo "Có thay đổi trong thư mục 'my-folder':"
                         echo changes
                         currentBuild.description = "Thanh test"
