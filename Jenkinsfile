@@ -27,18 +27,5 @@ pipeline {
                 }
             }
         }
-
-        stage('Hành động khi có thay đổi') {
-            when {
-                expression {
-                    // Chỉ thực hiện stage này nếu có thay đổi
-                    return currentBuild.description?.contains("Thư mục 'my-folder' đã thay đổi")
-                }
-            }
-            steps {
-                echo "Thực hiện hành động do thư mục 'my-folder' thay đổi."
-                // Thực hiện các lệnh hoặc hành động mong muốn
-            }
-        }
     }
 }
