@@ -2,13 +2,12 @@ pipeline {
     agent any
     stages {
 
-     stage('Kiểm tra thay đổi trong thư mục') {
-                steps {
-                    script {
-                        sh 'echo thanh-test'
-                    }
-                }
-            }
+     stage('Checkout') {
+                 steps {
+                     echo 'Checking out source code...'
+                     checkout scm
+                 }
+             }
 
         stage('Kiểm tra thay đổi trong thư mục') {
             steps {
