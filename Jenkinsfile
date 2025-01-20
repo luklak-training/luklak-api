@@ -1,28 +1,37 @@
 pipeline {
     agent any
-
-    environment {
-        DOCKERHUB_CREDENTIALS = 'dockerhub'
-        DOCKER_IMAGE = 'luklak-api-app'
-        VERSION = "${env.BUILD_NUMBER}"
-        DOCKER_USERNAME = 'thanh5320'
-    }
-
     stages {
-        stage('Checkout') {
-            steps {
-                echo 'Checking out source code...'
-                checkout scm
-            }
-        }
-
-        stage('Determine Version') {
-        when { changeset "helm/*"}
+        stage('Kiểm tra thay đổi trong thư mục') {
             steps {
                 script {
-                    sh 'echo changed in helm'
+                    // Kiểm tra sự thay đổi trong thư mục 'my-folder'
+                    def changes = sh(
+                        script: "git diff --name-only HEAD~1 HEAD | grep '^helm/' || true",
+                        returnStdout: true
+                    ).trim()
+
+                    if (changes) {
+                        echo "Có thay đổi trong thư mục 'my-folder':"
+                        echo changes
+                        currentBuild.description = "Thư mục 'my-folder' đã thay đổi"
+                    } else {
+                        echo "Không có thay đổi trong thư mục 'my-folder'."
+                    }
                 }
             }
         }
-}
+
+        stage('Hành động khi có thay đổi') {
+            when {
+                expression {
+                    // Chỉ thực hiện stage này nếu có thay đổi
+                    return currentBuild.description?.contains("Thư mục 'my-folder' đã thay đổi")
+                }
+            }
+            steps {
+                echo "Thực hiện hành động do thư mục 'my-folder' thay đổi."
+                // Thực hiện các lệnh hoặc hành động mong muốn
+            }
+        }
+    }
 }
