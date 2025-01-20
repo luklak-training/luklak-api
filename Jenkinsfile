@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     def changes = sh(
-                        script: "git diff --name-only HEAD~1 HEAD | grep '^helm/' || true",
+                        script: "git diff --name-only HEAD~1 HEAD | grep '^helm/'",
                         returnStdout: true
                     ).trim()
 
