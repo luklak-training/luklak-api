@@ -21,7 +21,7 @@ pipeline {
                     if (changes) {
                         echo "Có thay đổi trong thư mục 'my-folder':"
                         echo changes
-                        currentBuild.description = "Thư mục 'my-folder' đã thay đổi"
+                        currentBuild.description = "Thanh test"
                     } else {
                         echo "Không có thay đổi trong thư mục 'my-folder'."
                     }
