@@ -56,6 +56,35 @@ pipeline {
                 sh 'docker push $DOCKER_USERNAME/${DOCKER_IMAGE}:${VERSION}'
             }
         }
+
+        stage('Update Helm Values') {
+            steps {
+                script {
+                    echo 'Updating Helm values.yaml...'
+                    withCredentials([usernamePassword(credentialsId: GIT_CREDENTIALS,
+                                                      usernameVariable: 'GIT_USERNAME',
+                                                      passwordVariable: 'GIT_PASSWORD')]) {
+                        sh """
+                        if [ -d "helm-luklak-api" ]; then
+                            cd helm-luklak-api
+                            git reset --hard
+                            git clean -fd
+                            git pull
+                        else
+                            git clone ${HELM_REPO}
+                            cd helm-luklak-studen-api
+                        fi
+                        sed -i 's/^\\(\\s*tag:\\s*\\).*/\\1${VERSION}/' values.yaml
+                        git config user.name "Jenkins"
+                        git config user.email "thanhnv@jenkins.com"
+                        git add values.yaml
+                        git commit -m "Update image tag to ${VERSION}"
+                        git push https://$GIT_USERNAME:$GIT_PASSWORD@github.com/luklak-training/helm-luklak-api.git
+                        """
+                    }
+                }
+            }
+        }
     }
 
     post {
