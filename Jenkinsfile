@@ -74,7 +74,7 @@ pipeline {
                             git pull
                         else
                             git clone ${HELM_REPO}
-                            cd helm-luklak-studen-api
+                            cd helm-luklak-api
                         fi
                         sed -i 's/^\\(\\s*tag:\\s*\\).*/\\1${VERSION}/' values.yaml
                         git config user.name "Jenkins"
