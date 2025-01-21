@@ -6,6 +6,8 @@ pipeline {
         DOCKER_IMAGE = 'luklak-api-app'
         VERSION = "${env.BUILD_NUMBER}"
         DOCKER_USERNAME = 'thanh5320'
+        GIT_CREDENTIALS = 'github' // ID của credentials để push code Git
+        HELM_REPO = 'https://github.com/luklak-training/helm-luklak-api.git' // URL repo Helm của bạn
     }
 
     stages {
