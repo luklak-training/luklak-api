@@ -7,7 +7,7 @@ ENV HOME /app
 EXPOSE 8080
 
 COPY target/$FILE $HOME/
-COPY config/hazelcast.yaml $HOME/config/
+#COPY config/hazelcast.yaml $HOME/config/
 
 WORKDIR $HOME
 ENTRYPOINT ["sh", "-c"]
